@@ -24,6 +24,15 @@ buildscript{
 plugins{
     id "org.jetbrains.kotlin.jvm" version "1.6.0"
     id "org.jetbrains.kotlin.kapt" version "1.6.0"
+    id "org.sonarqube" version "4.2.1.3168"
+}
+
+sonar {
+  properties {
+    property "sonar.projectKey", "sunshuaiii_Mindustry"
+    property "sonar.organization", "sunshuaiii"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
 }
 
 allprojects{
