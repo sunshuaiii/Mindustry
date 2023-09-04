@@ -186,11 +186,11 @@ public class Annotations{
 
     public enum PacketPriority{
         /** Does not get handled unless client is connected. */
-        low,
+        LOW,
         /** Gets put in a queue and processed if not connected. */
-        normal,
+        NORMAL,
         /** Gets handled immediately, regardless of connection status. */
-        high,
+        HIGH,
     }
 
     /** A set of two booleans, one specifying server and one specifying client. */
@@ -254,7 +254,7 @@ public class Annotations{
         boolean unreliable() default false;
 
         /** Priority of this event. */
-        PacketPriority priority() default PacketPriority.normal;
+        PacketPriority priority() default PacketPriority.NORMAL;
     }
 
     @Target(ElementType.TYPE)
