@@ -16,12 +16,14 @@ import arc.scene.utils.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.ctype.*;
+import mindustry.core.GameState.*;
 import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.input.*;
 import mindustry.type.*;
 import mindustry.ui.*;
+import mindustry.entities.comp.PlayerComp;
 
 import java.util.regex.*;
 
@@ -172,7 +174,9 @@ public class SchematicsDialog extends BaseDialog{
                                 label.setEllipsis(true);
                                 label.setAlignment(Align.center);
                             }).growX().margin(1).pad(4).maxWidth(Scl.scl(200f - 8f)).padBottom(0);
-                        })).size(200f);
+                                               }), new Table(n -> {
+                            n.table(Styles.black6).growX().growY().pad(4);
+                        }).visible(() -> state.is(State.menu) || !(state.rules.infiniteResources || (playerComp.closestCore() != null && playerComp.closestCore().items.has(s.requirements().toArray(ItemStack.class), state.rules.buildCostMultiplier))))).size(200f);
                     }, () -> {
                         if(sel[0].childrenPressed()) return;
                         if(state.isMenu()){
@@ -758,7 +762,7 @@ public class SchematicsDialog extends BaseDialog{
                 for(ItemStack s : arr){
                     r.image(s.item.uiIcon).left().size(iconMed);
                     r.label(() -> {
-                        Building core = player.core();
+                        Building core = playerComp.core();
                         if(core == null || state.isMenu() || state.rules.infiniteResources || core.items.has(s.item, s.amount)) return "[lightgray]" + s.amount + "";
                         return (core.items.has(s.item, s.amount) ? "[lightgray]" : "[scarlet]") + Math.min(core.items.get(s.item), s.amount) + "[lightgray]/" + s.amount;
                     }).padLeft(2).left().padRight(4);
