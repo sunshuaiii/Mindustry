@@ -551,12 +551,12 @@ public class NetServer implements ApplicationListener{
         Call.debugStatusClientUnreliable(player.con, flags, player.con.lastReceivedClientSnapshot, player.con.snapshotsSent);
     }
 
-    @Remote(variants = Variant.both, priority = PacketPriority.high)
+    @Remote(variants = Variant.both, priority = PacketPriority.HIGH)
     public static void debugStatusClient(int value, int lastClientSnapshot, int snapshotsSent){
         logClientStatus(true, value, lastClientSnapshot, snapshotsSent);
     }
 
-    @Remote(variants = Variant.both, priority = PacketPriority.high, unreliable = true)
+    @Remote(variants = Variant.both, priority = PacketPriority.HIGH, unreliable = true)
     public static void debugStatusClientUnreliable(int value, int lastClientSnapshot, int snapshotsSent){
         logClientStatus(false, value, lastClientSnapshot, snapshotsSent);
     }

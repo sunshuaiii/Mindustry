@@ -307,7 +307,7 @@ public class NetClient implements ApplicationListener{
         }
     }
 
-    @Remote(variants = Variant.one, priority = PacketPriority.high)
+    @Remote(variants = Variant.one, priority = PacketPriority.HIGH)
     public static void kick(KickReason reason){
         netClient.disconnectQuietly();
         logic.reset();
@@ -327,7 +327,7 @@ public class NetClient implements ApplicationListener{
         ui.loadfrag.hide();
     }
 
-    @Remote(variants = Variant.one, priority = PacketPriority.high)
+    @Remote(variants = Variant.one, priority = PacketPriority.HIGH)
     public static void kick(String reason){
         netClient.disconnectQuietly();
         logic.reset();
@@ -436,7 +436,7 @@ public class NetClient implements ApplicationListener{
         }
     }
 
-    @Remote(variants = Variant.one, priority = PacketPriority.low, unreliable = true)
+    @Remote(variants = Variant.one, priority = PacketPriority.LOW, unreliable = true)
     public static void entitySnapshot(short amount, byte[] data){
         try{
             netClient.byteStream.setBytes(data);
@@ -451,7 +451,7 @@ public class NetClient implements ApplicationListener{
         }
     }
 
-    @Remote(variants = Variant.one, priority = PacketPriority.low, unreliable = true)
+    @Remote(variants = Variant.one, priority = PacketPriority.LOW, unreliable = true)
     public static void hiddenSnapshot(IntSeq ids){
         for(int i = 0; i < ids.size; i++){
             int id = ids.items[i];
@@ -462,7 +462,7 @@ public class NetClient implements ApplicationListener{
         }
     }
 
-    @Remote(variants = Variant.both, priority = PacketPriority.low, unreliable = true)
+    @Remote(variants = Variant.both, priority = PacketPriority.LOW, unreliable = true)
     public static void blockSnapshot(short amount, byte[] data){
         try{
             netClient.byteStream.setBytes(data);
@@ -487,7 +487,7 @@ public class NetClient implements ApplicationListener{
         }
     }
 
-    @Remote(variants = Variant.one, priority = PacketPriority.low, unreliable = true)
+    @Remote(variants = Variant.one, priority = PacketPriority.LOW, unreliable = true)
     public static void stateSnapshot(float waveTime, int wave, int enemies, boolean paused, boolean gameOver, int timeData, byte tps, long rand0, long rand1, byte[] coreData){
         try{
             if(wave > state.wave){
