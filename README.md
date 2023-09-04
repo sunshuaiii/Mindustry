@@ -48,7 +48,6 @@ Server builds are bundled with each released build (in Releases). If you'd rathe
 To debug the application on a connected device/emulator, run `gradlew android:installDebug android:run`.
 
 ### Troubleshooting
-
 #### Permission Denied
 
 If the terminal returns `Permission denied` or `Command not found` on Mac/Linux, run `chmod +x ./gradlew` before running `./gradlew`. *This is a one-time procedure.*
