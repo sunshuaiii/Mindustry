@@ -254,7 +254,7 @@ public class Annotations{
         boolean unreliable() default false;
 
         /** Priority of this event. */
-        PacketPriority priority() default PacketPriority.Normal;
+        PacketPriority priority() default PacketPriority.NORMAL;
     }
 
     @Target(ElementType.TYPE)

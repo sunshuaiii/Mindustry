@@ -36,7 +36,7 @@ public class CallGenerator{
             packet.superclass(tname("mindustry.net.Packet"));
 
             //return the correct priority
-            if(ent.priority != PacketPriority.Normal){
+            if(ent.priority != PacketPriority.NORMAL){
                 packet.addMethod(MethodSpec.methodBuilder("getPriority")
                     .addModifiers(Modifier.PUBLIC)
                     .addAnnotation(Override.class).returns(int.class).addStatement("return $L", ent.priority.ordinal())
