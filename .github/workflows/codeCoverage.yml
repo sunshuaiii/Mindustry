@@ -1,29 +1,76 @@
-on:
-  push:
-    branches:
-      - main  # You can adjust the branch name as needed
-  pull_request:
+name: Tests
 
-name: Test Coveralls
+on: [push, workflow_dispatch]
 
+permissions: {}
 jobs:
-  build:
-    name: Build
+  runPush:
+    permissions:
+      contents: write # for Update bundles
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2  # Updated to v2 since v1 is deprecated
-
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v2  # Updated to v2 since v3 is not correct
-      with:
-        node-version: 16.x
-
-    - name: Install dependencies and run test-coverage
+    - uses: actions/checkout@v2
+    - name: Trigger BE build
+      if: ${{ github.repository == 'Anuken/Mindustry' }}
       run: |
-        npm install
-        make test-coverage
-
-    - name: Coveralls
-      uses: coverallsapp/github-action@v1  # Corrected version to v1
+        git clone --depth=1 --branch=master https://github.com/Anuken/MindustryBuilds ../MindustryBuilds
+        cd ../MindustryBuilds
+        BNUM=$(($GITHUB_RUN_NUMBER + 20000))
+        git tag ${BNUM}
+        git config --global user.name "Github Actions"
+        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryBuilds ${BNUM}
+    - name: Set up JDK 17
+      uses: actions/setup-java@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}  # This token is automatically available in GitHub Actions
+        java-version: 17
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: Update bundles
+      if: ${{ github.repository == 'Anuken/Mindustry' }}
+      run: |
+        ./gradlew updateBundles
+
+        if [ -n "$(git status --porcelain)" ]; then
+          git add core/assets/bundles/*
+          git commit -m "Automatic bundle update"
+          git push
+        fi
+    - name: Update JITpack repo
+      if: ${{ github.repository == 'Anuken/Mindustry' }}
+      run: |
+        git config --global user.name "Github Actions"
+        git config --global user.email "cli@github.com"
+        cd ../
+        cp -r ./Mindustry ./MindustryJitpack
+        cd MindustryJitpack
+        git clone --depth 1 https://github.com/Anuken/MindustryJitpack.git
+        rm -rf .git
+        cp -r ./MindustryJitpack/.git ./.git
+        rm -rf MindustryJitpack
+        rm -rf .github
+        rm README.md
+        git add .
+        git commit --allow-empty -m "${GITHUB_SHA}"
+        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryJitpack
+        cd ../Mindustry
+
+    - name: Report Coveralls (Linux)
+      if: startsWith(runner.os, 'Linux')
+      run: curl -sL https://coveralls.io/coveralls-linux.tar.gz | tar -xz && ./coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Report Coveralls (Windows)
+      if: startsWith(runner.os, 'Windows')
+      run: curl -sL https://github.com/coverallsapp/coverage-reporter/releases/latest/download/coveralls-windows.zip | zcat > ./coveralls.exe && ./coveralls.exe
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Report Coveralls (macOS)
+      if: startsWith(runner.os, 'macOS')
+      run: |
+        brew tap coverallsapp/coveralls --quiet
+        brew install coveralls --quiet
+        coveralls

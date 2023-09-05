@@ -55,22 +55,5 @@ jobs:
         git commit --allow-empty -m "${GITHUB_SHA}"
         git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryJitpack
         cd ../Mindustry
-
-    - name: Run unit tests and make test coverage
-      run: |
-        ./gradlew clean cleanTest test --stacktrace
-    - name: Coveralls
-      uses: coverallsapp/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}  # This token is automatically available in GitHub Actions
-
-  coverallsFinished:
-    runs-on: ubuntu-latest
-    needs: runPush  # Make sure to set the appropriate job name for the dependency
-      
-    steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}  # This token is automatically available in GitHub Actions
-        parallel-finished: true
+    - name: Run unit tests
+      run: ./gradlew clean cleanTest test --stacktrace
