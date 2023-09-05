@@ -81,4 +81,4 @@ jobs:
       uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}  # This token is automatically available in GitHub Actions
-          parallel-finished: true
+        parallel-finished: true
