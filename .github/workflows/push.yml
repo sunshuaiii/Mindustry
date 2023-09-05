@@ -55,12 +55,6 @@ jobs:
         git commit --allow-empty -m "${GITHUB_SHA}"
         git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryJitpack
         cd ../Mindustry
-    - name: Run unit tests
-      run: ./gradlew clean cleanTest test --stacktrace
-    - name: Install Coveralls CLI
-      run: |
-        npm install -g coveralls
-        coveralls --version
 
     - name: Run unit tests and report coverage
       run: |
