@@ -41,7 +41,6 @@ import mindustry.world.blocks.power.*;
 import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
 import mindustry.world.modules.*;
-import mindustry.core.GameState;
 
 import java.util.*;
 
@@ -2055,7 +2054,7 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
 
         //TODO refactor to timestamp-based system?
         if((timeScaleDuration -= Time.delta) <= 0f || !block.canOverdrive){
-            timeScale = state.rules.teams.get(team).timescale;
+            timeScale = 1f;
         }
 
         if(!allowUpdate()){
