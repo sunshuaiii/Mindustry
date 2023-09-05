@@ -193,8 +193,7 @@ public class Rules{
     public @Nullable PlanetParams planetBackground;
     /** Rules from this planet are applied. If it's {@code sun}, mixed tech is enabled. */
     public Planet planet = Planets.serpulo;
-    /** Unboosted blocks timescale by default. */
-    public float timescale = 1f;
+
 
     /** Copies this ruleset exactly. Not efficient at all, do not use often. */
     public Rules copy(){
@@ -270,6 +269,8 @@ public class Rules{
         public boolean infiniteResources;
         /** If true, this team has infinite unit ammo. */
         public boolean infiniteAmmo;
+        /** Unboosted blocks timescale by default. */
+        public float timescale = 1f;
 
         /** AI that builds random schematics. */
         public boolean buildAi;
