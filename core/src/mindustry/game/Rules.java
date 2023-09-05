@@ -268,7 +268,10 @@ public class Rules{
         public boolean infiniteResources;
         /** If true, this team has infinite unit ammo. */
         public boolean infiniteAmmo;
-
+        
+        /** Unboosted blocks timescale by default. */
+        public float timescale = 1f;
+        
         /** AI that builds random schematics. */
         public boolean buildAi;
         /** Tier of builder AI. [0, 1] */
