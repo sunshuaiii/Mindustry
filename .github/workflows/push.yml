@@ -59,8 +59,7 @@ jobs:
     - name: Run unit tests and report coverage
       run: |
         ./gradlew clean cleanTest test --stacktrace
-        ./gradlew jacocoTestReport
-        coveralls
+        make test-coverage
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
@@ -72,7 +71,7 @@ jobs:
       
     steps:
     - name: Coveralls Finished
-      uses: coverallsapp/github-action@v1
+      uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}  # This token is automatically available in GitHub Actions
         parallel-finished: true
