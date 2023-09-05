@@ -2054,7 +2054,7 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
 
         //TODO refactor to timestamp-based system?
         if((timeScaleDuration -= Time.delta) <= 0f || !block.canOverdrive){
-            timeScale = 1f;
+           timeScale = state.rules.teams.get(team).timescale;
         }
 
         if(!allowUpdate()){
