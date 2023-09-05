@@ -56,10 +56,9 @@ jobs:
         git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryJitpack
         cd ../Mindustry
 
-    - name: Run unit tests and report coverage
+    - name: Run unit tests and make test coverage
       run: |
         ./gradlew clean cleanTest test --stacktrace
-        make test-coverage
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
