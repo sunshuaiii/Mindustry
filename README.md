@@ -17,7 +17,7 @@ See [CONTRIBUTING](CONTRIBUTING.md).
 
 Bleeding-edge builds are generated automatically for every commit. You can see them [here](https://github.com/Anuken/MindustryBuilds/releases).
 
-If you'd rather compile on your own, follow these instructions.
+If you'd rather compile it on your own, follow these instructions.
 First, make sure you have [JDK 16-17](https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot) installed. **Other JDK versions will not work.** Open a terminal in the Mindustry directory and run the following commands:
 
 ### Windows
