@@ -62,7 +62,7 @@ jobs:
         ./gradlew jacocoTestReport
         coveralls
     - name: Coveralls
-      uses: coverallsapp/github-action@v1  # Corrected version to v1
+      uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}  # This token is automatically available in GitHub Actions
 
