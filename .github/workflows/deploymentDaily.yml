@@ -24,10 +24,10 @@ jobs:
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "Github Actions"
-        git clone --depth=1 --branch=master https://github.com/Anuken/Arc ../Arc
+        git clone --depth=1 --branch=master https://github.com/sunshuaiii/Arc ../Arc
         cd ../Arc
         git tag ${RELEASE_VERSION}
-        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/Arc ${RELEASE_VERSION};
+        git push https://sunshuaiii:${{ secrets.API_TOKEN_GITHUB }}@github.com/sunshuaiii/Arc ${RELEASE_VERSION};
         cd ../Mindustry
     - name: Update JITpack repo
       run: |
@@ -36,7 +36,7 @@ jobs:
         cd MindustryJitpack
         git config --global user.name "Github Actions"
         git config --global user.email "actions@github.com"
-        git clone --depth 1 https://github.com/Anuken/MindustryJitpack.git
+        git clone --depth 1 https://github.com/sunshuaiii/MindustryJitpack.git
         rm -rf .git
         cp -r ./MindustryJitpack/.git ./.git
         rm -rf MindustryJitpack
@@ -44,9 +44,9 @@ jobs:
         rm README.md
         git add .
         git commit --allow-empty -m "${GITHUB_SHA}"
-        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryJitpack
+        git push https://sunshuaiii:${{ secrets.API_TOKEN_GITHUB }}@github.com/sunshuaiii/MindustryJitpack
         git tag ${RELEASE_VERSION}
-        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryJitpack
+        git push https://sunshuaiii:${{ secrets.API_TOKEN_GITHUB }}@github.com/sunshuaiii/MindustryJitpack
         cd ../Mindustry
     - name: Create artifacts
       run: |
@@ -64,18 +64,18 @@ jobs:
         cd docs
         git add .
         git commit --allow-empty -m "Update ${RELEASE_VERSION:1}"
-        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/MindustryGame/docs
+        git push https://sunshuaiii:${{ secrets.API_TOKEN_GITHUB }}@github.com/MindustryGame/docs
         cd ../Mindustry
     - name: Update F-Droid build string
       run: |
-        git clone --depth=1 --branch=master https://github.com/Anuken/MindustryBuilds ../MindustryBuilds
+        git clone --depth=1 --branch=master https://github.com/sunshuaiii/MindustryBuilds ../MindustryBuilds
         cd ../MindustryBuilds
         echo "Updating version to ${RELEASE_VERSION:1}"
         BNUM=$(($GITHUB_RUN_NUMBER + 1000))
         echo versionName=7-fdroid-${RELEASE_VERSION:1}$'\n'versionCode=${BNUM} > version_fdroid.txt
         git add .
         git commit -m "Updating to build ${RELEASE_VERSION:1}"
-        git push https://Anuken:${{ secrets.API_TOKEN_GITHUB }}@github.com/Anuken/MindustryBuilds
+        git push https://sunshuaiii:${{ secrets.API_TOKEN_GITHUB }}@github.com/sunshuaiii/MindustryBuilds
         cd ../Mindustry
     - name: Upload client artifacts
       uses: svenstaro/upload-release-action@v2
